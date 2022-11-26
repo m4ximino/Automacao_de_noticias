@@ -1,5 +1,6 @@
 from time import sleep
 import models.gerador_de_noticias_CNN
+import models.gerador_de_noticia_G1
 
 def main() -> None:
     menu()
@@ -64,7 +65,14 @@ def get_CNN():
     
 
 def get_G1():
-    None
+    url = 'https://www.cnnbrasil.com.br/ao-vivo/'
+    r = models.gerador_de_noticias_CNN.get_http(url)
+    if r:
+        print('Selecione uma opção abaixo para ler a matéria completa: ')
+        list_not = models.gerador_de_noticia_G1.get_noticias_G1(r.text)
+        print(list_not)
+
+
 
 def get_UOL():
     None
