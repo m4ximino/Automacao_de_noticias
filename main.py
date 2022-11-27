@@ -65,12 +65,19 @@ def get_CNN():
     
 
 def get_G1():
-    url = 'https://www.cnnbrasil.com.br/ao-vivo/'
+    url = 'https://g1.globo.com/'
     r = models.gerador_de_noticias_CNN.get_http(url)
     if r:
         print('Selecione uma opção abaixo para ler a matéria completa: ')
         list_not = models.gerador_de_noticia_G1.get_noticias_G1(r.text)
-        print(list_not)
+        for nti in list_not: print(nti[0], '-', nti[1])
+        opcao: int = int(input())
+        for nti in list_not: 
+            if opcao == int(nti[0]):
+                url = nti[2]
+                r = models.gerador_de_noticias_CNN.get_http(url)
+                reportagem = models.gerador_de_noticia_G1.get_noticias_G1(r.text)
+
 
 
 
