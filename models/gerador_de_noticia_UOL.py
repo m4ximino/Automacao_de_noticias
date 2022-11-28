@@ -22,17 +22,15 @@ def get_noticias_UOL(content):
 
 def get_noticia_completa_UOL(content):
     soup = BeautifulSoup(content, 'lxml')
-    reportagem = soup.find_all('p', class_= 'content-text__container')
+    reportagem = soup.find_all('div', class_= 'text')
     tbody = []
     for temp in reportagem:
-        for t_temp in temp:
-            tbody.append(t_temp.string)
+        for t_temp in temp.find_all('p'):
+            if t_temp.string != None:
+                tbody.append(t_temp.string)
     return ''.join(tbody)
 
-# url = 'https://www.uol.com.br/'
-# r = requests.get(url)
-# print(get_noticias_UOL(r.text))
-# <h3 id="lazbz114" class="title__element headlineSub__content__title">
-# <h3 class="thumb-title title-xsmall title-lg-small title-xs-medium">'Também perco uma mãe', lamenta filha de homem morto escondido em freezer</h3>
-# <a href="https://www.uol.com.br/esporte/futebol/copa-do-mundo/2022/11/27/otimismo-sobre-neymar-aumenta-e-jogo-contra-a-suica-decidira-estrategia.htm" class="hyperlink headlineSub__link">flex
-# <i class="col-sm-22 col-md-22 col-lg-22 custom-title" ia-title>Otimismo sobre Neymar aumenta, e jogo contra a Suíça decidirá estratégia </i>
+url = 'https://www.uol.com.br/esporte/futebol/copa-do-mundo/2022/11/27/fred-titular-no-brasil-seria-uma-decepcao-e-incoerencia-de-tite-diz-juca.htm'
+r = requests.get(url)
+print(get_noticia_completa_UOL(r.text))
+# <div class="text  ">

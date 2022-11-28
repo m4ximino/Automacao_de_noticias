@@ -97,6 +97,20 @@ def get_UOL():
         print('Selecione uma opção abaixo para ler a matéria completa: ')
         list_not = models.gerador_de_noticia_UOL.get_noticias_UOL(r.text)
         for nti in list_not: print(nti[0], '-', nti[1])
+        opcao: int = int(input())
+        for nti in list_not: 
+            if opcao == int(nti[0]):
+                url = nti[2]
+                r = models.gerador_de_noticias_CNN.get_http(url)
+                reportagem = models.gerador_de_noticia_UOL.get_noticia_completa_UOL(r.text)
+                print(reportagem)
+    sleep(1)
+    print('Selecione uma opção abaixo: ')
+    print('1 - Ler outra matéria')
+    print('2 - Menu')
+    opcao: int = int(input())
+    if opcao == 1: get_CNN()
+    else: menu()
 
 if __name__ == '__main__':
     main()
