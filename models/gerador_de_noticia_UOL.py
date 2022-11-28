@@ -30,7 +30,3 @@ def get_noticia_completa_UOL(content):
                 tbody.append(t_temp.string)
     return ''.join(tbody)
 
-url = 'https://www.uol.com.br/esporte/futebol/copa-do-mundo/2022/11/27/fred-titular-no-brasil-seria-uma-decepcao-e-incoerencia-de-tite-diz-juca.htm'
-r = requests.get(url)
-print(get_noticia_completa_UOL(r.text))
-# <div class="text  ">
