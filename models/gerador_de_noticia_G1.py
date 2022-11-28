@@ -15,13 +15,9 @@ def get_noticias_G1(content):
 def get_noticia_completa_G1(content):
     soup = BeautifulSoup(content, 'lxml')
     reportagem = soup.find_all('p', class_= 'content-text__container')
-    print(reportagem.string)
-    # tbody = []
-    # for temp in reportagem:
-    #     for t_temp in temp.find_all('p'):
-    #         tbody.append(t_temp.string)
+    tbody = []
+    for temp in reportagem:
+        for t_temp in temp:
+            tbody.append(t_temp.string)
+    return ''.join(tbody)
 
-
-url = 'https://g1.globo.com/es/espirito-santo/noticia/2022/11/26/pai-confirma-adolescente-baleada-aracruz.ghtml'
-r = requests.get(url)
-print(get_noticia_completa_G1(r.text))

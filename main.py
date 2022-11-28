@@ -1,6 +1,7 @@
 from time import sleep
 import models.gerador_de_noticias_CNN
 import models.gerador_de_noticia_G1
+import models.gerador_de_noticia_UOL
 
 def main() -> None:
     menu()
@@ -76,13 +77,26 @@ def get_G1():
             if opcao == int(nti[0]):
                 url = nti[2]
                 r = models.gerador_de_noticias_CNN.get_http(url)
-                reportagem = models.gerador_de_noticia_G1.get_noticias_G1(r.text)
-
+                reportagem = models.gerador_de_noticia_G1.get_noticia_completa_G1(r.text)
+                print(reportagem)
+    sleep(1)
+    print('Selecione uma opção abaixo: ')
+    print('1 - Ler outra matéria')
+    print('2 - Menu')
+    opcao: int = int(input())
+    if opcao == 1: get_CNN()
+    else: menu()
+    
 
 
 
 def get_UOL():
-    None
+    url = 'https://www.uol.com.br/'
+    r = models.gerador_de_noticias_CNN.get_http(url)
+    if r:
+        print('Selecione uma opção abaixo para ler a matéria completa: ')
+        list_not = models.gerador_de_noticia_UOL.get_noticias_UOL(r.text)
+        for nti in list_not: print(nti[0], '-', nti[1])
 
 if __name__ == '__main__':
     main()
